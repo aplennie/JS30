@@ -2,11 +2,16 @@ h2 {
   text-align: center;
   position: relative;
   top: 250px;
-  font-family: sans-serif;
+  font-family: 'Exo 2', sans-serif;
 }
 
 body {
-  background-image: linear-gradient(144deg, #9971a6, #b85c72);
+  background-image: linear-gradient(181deg, #3b8dc6, #4bd96c);
+}
+
+kbd {
+  display: block;
+  font-size: 20px;
 }
 
 
@@ -21,7 +26,8 @@ body {
 .key {
   height: 50px;
   width: 50px;
-  background-color: gray;
+  background-color: #b2b2b2;
+  opacity: 0.6;
   margin-left: 10px;
   margin-right: 10px;
   border-radius: 5px;
@@ -36,9 +42,11 @@ body {
 .press {
   transform: scale(1.1);
   box-shadow: 0 0 10px #ffffff;
+  opacity: 1;
 }
 
 .label {
   font-size: 10px;
   font-family: monospace;
+
 }
