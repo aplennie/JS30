@@ -1,0 +1,44 @@
+h2 {
+  text-align: center;
+  position: relative;
+  top: 250px;
+  font-family: sans-serif;
+}
+
+body {
+  background-image: linear-gradient(144deg, #9971a6, #b85c72);
+}
+
+
+.keys-container {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.key {
+  height: 50px;
+  width: 50px;
+  background-color: gray;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 0 5px #000000;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  transition: all 0.07s ease;
+}
+
+.press {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px #ffffff;
+}
+
+.label {
+  font-size: 10px;
+  font-family: monospace;
+}
