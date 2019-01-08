@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+<canvas id="draw" width="800" height="800"></canvas>
+<script>
+  const canvas = document.querySelector('#draw');
+  const ctx = canvas.getContext('2d'); // we are using a 2d context to draw on the canvas
+  canvas.height = window.innerWidth;
+  canvas.width = window.innerHeight;
+  ctx.strokeStyle = '#BADA55'; // color of the line
+  ctx.lineJoin = 'round'; // when 2 lines meet,
+  ctx.lineCap = 'round'; // endpiece of line
+//  ctx.globalCompositeOperation = 'multiply'; // photoshop blending modes
+
+  let isDrawing = false; // this will help determine whether or not the cursor is drawing vs just moving around on the page
+  let lastX = 0; // telling where to start and end the line (initialize)
+  let lastY = 0;
+  let hue = 0;
+  let direction = true;
+
+  function draw(e) {
+    if(!isDrawing) return; // stop the function from running when mouse is not clicked
+    ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`; // this is where we get our colour
+
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY); // this is the starting point
+    ctx.lineTo(e.offsetX, e.offsetY); // this is where the line is going to (user mouse)
+    ctx.stroke();
+
+    hue++; // increments hue so that colour shifts as we draw
+    if(hue >= 360) {
+      hue = 0;
+    };
+
+    // the following conditionals change the width of the stroke from 0 to 100. it grows incrementally from 0, then when it reaches 100 it decreases.
+    if(ctx.lineWidth >= 50 || ctx.lineWidth <= 1) {
+      direction = !direction; // flip the direction, either increment or decrement.
+    }
+    if(direction) {
+      ctx.lineWidth++;
+    } else {
+      ctx.lineWidth--;
+    }
+
+    lastX = e.offsetX; // updating X and Y values
+    lastY = e.offsetY;
+    // OR use [lastX, lastY] = [e.offsetX, e.offsetY] // es6 shortcut
+  }
+
+  canvas.addEventListener('mousedown', (e) => {
+    isDrawing = true;
+    [lastX, lastY] = [e.offsetX, e.offsetY]; // this sets the inital position of where the cursor starts drawing (not at 0,0)
+  })
+  canvas.addEventListener('mousemove', draw); // execute draw function when mouse is moving
+  canvas.addEventListener('mousedown', () => isDrawing = true); // continue drawing when mouse clicked
+  canvas.addEventListener('mouseup', () => isDrawing = false); // stops drawing if mouse up
+  canvas.addEventListener('mouseout', () => isDrawing = false); // stops drawing if mouse goes out of canvas
+
+
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+  }
+</style>
+
+</body>
+</html>
