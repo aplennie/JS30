@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'hugo', age: 8 }];
+
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+
+    // Regular
+    console.log('heyo');
+    // Interpolated
+    console.log('hello I am a %s string!', '😉') // probably easier with es6 backticks
+    // Styled
+    console.log('%c I am green','font-size:50px; background:green');
+    // warning!
+    console.warn('oopsies');
+    // Error :|
+    console.error('big oopsies');
+    // Info
+    console.info('Elephants think humans are cute')
+    // Testing
+    console.assert(1 === 2, 'Thats not right'); // if the first thing is false, the message will appear
+    // clearing
+    console.clear();
+    // Viewing DOM Elements
+    console.log(p); // shows element itself
+    console.dir(p); // shows properties of the element
+    // Grouping together
+    dogs.forEach(dog => {
+      console.group(`${dog.name}`); // allows grouping of each item, use groupCollapsed to automatically have them collased when created
+      console.log(`This is ${dog.name}`);
+      console.log(`${dog.name} is ${dog.age} years old`);
+      console.log(`${dog.name} is ${dog.age * 7} dog years old`);
+      console.groupEnd(`${dog.name}`);
+    });
+    // counting
+    console.count('lol'); // counts how many times lol has been logged
+    // timing
+    console.time('fetching data');
+    fetch('url') // eg from an API
+      .then(data => data.json())
+      .then(data => {
+        console.timeEnd('fetching data');
+        console.log(data);
+      });
+    // table
+    console.table(dogs); // displays arrays with same properties in a table format
+    
+  </script>
+</body>
+</html>
