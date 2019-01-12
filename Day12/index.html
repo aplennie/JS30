@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Key Detection</title>
+  <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
+</head>
+<body>
+<script>
+const pressed = []; // initialize array of pressed keys
+const secretCode = 'sesame';
+window.addEventListener('keyup', (e) => { // detecting when a key has been pressed
+  pressed.push(e.key); // logs each key that is pressed into array
+  pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length); // starts at end of array and splices to front, splices the last n keys where n is the length of the code
+ if(pressed.join('').includes(secretCode)) { // joins keys with blank delimiter (no space between letters) then checks if equal to code
+   console.log('SESAMEEEE!!!'); // here we can do anything !
+   cornify_add();
+ }
+})
+</script>
+</body>
+</html>
