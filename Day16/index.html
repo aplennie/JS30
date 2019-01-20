@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mouse Shadow</title>
+</head>
+<body>
+
+  <div class="hero">
+    <h1 contenteditable>😍type here😍</h1>
+  </div>
+
+  <style>
+  html {
+    color: black;
+    font-family: sans-serif;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+  }
+
+  h1 {
+    text-shadow: 10px 10px 0 rgba(0,0,0,1);
+    font-size: 100px;
+  }
+  </style>
+
+<script>
+const hero = document.querySelector('.hero');
+const text = hero.querySelector('h1'); // drilling down into hero div to select h1 text
+const walk = 30; // 10 px max shadow location
+
+function shadow(e) {
+  const { offsetWidth: width, offsetHeight: height } = hero; // width = hero.offsetWidth, height = hero.offsetHeight
+  let { offsetX: x, offsetY: y } = e; // setting x and y values equal to where the cursor is
+
+  if(this !== e.target) { // this = hero div, e.target = h1 when moused over. if not moused over, this = e.target
+    x = x + e.target.offsetLeft; // adds pixels that are within the target boundaries to update the overall x and y positions
+    y = y + e.target.offsetTop;
+  }
+
+  const xWalk = Math.round((x / width * walk) - (walk / 2)); // walk is the total range. meaning, if our highest value is 50, the lowest value should be -50 (for walk = 100).
+  const yWalk = Math.round((y / height * walk) - (walk / 2));
+
+  text.style.textShadow = `${xWalk}px ${yWalk}px 0 rgba(255,0,255,0.7)`
+}
+
+hero.addEventListener('mousemove', shadow) // whenever mouse changes position, trigger shadow function
+</script>
+</body>
+</html>
