@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Understanding JavaScript's Capture</title>
+</head>
+<body class="bod">
+
+  <div class="one">
+    <div class="two">
+      <div class="three">
+      </div>
+    </div>
+  </div>
+
+<style>
+  html {
+    box-sizing: border-box;
+  }
+
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+
+  div {
+    width: 100%;
+    padding: 100px;
+  }
+
+  .one {
+    background: thistle;
+  }
+
+  .two {
+    background: mistyrose;
+  }
+
+  .three {
+    background: coral;
+  }
+</style>
+
+<button></button>
+<script>
+  const divs = document.querySelectorAll('div');
+  const button = document.querySelector('button');
+
+  function logText(e) {
+    console.log(this.classList.value); // logs list of divs (parent divs as well) 'bubbling'
+    e.stopPropagation(); // stop bubbling at first selection
+  }
+
+  divs.forEach(div => div.addEventListener('click', logText, { // does not trigger a click on bod class because you are not listening at the body level.
+    capture: true; // runs function on descending level rather than ascending (div1 > div2 > div3)
+    // capture: false; // (div3 > div2 > div1)
+    once: true; // listens for click then unbinds itself. can be used on a button (will only run the button function once)
+  }));
+
+  button.addEventListener('click', () => { // click only works once! useful for store checkout, dont want it to run more than once
+    console.log('click!!'); }, {
+      once: true
+    });
+</script>
+</body>
+</html>
